@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -8,15 +8,13 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Détail de : {{ $article->nom}}</title>
+    <title>Détail de : {{ $article->nom }}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
-
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Inclure Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 </head>
 
 <body>
@@ -37,9 +35,7 @@
 
                 <div class="blog-post">
                     <p class="blog-post-meta">January 1, 2014 by <a href="#">Samba</a></p>
-
-                    <p> {{ $article->description }} </p>
-                    
+                    <p>{{ $article->description }}</p>
                 </div><!-- /.blog-post -->
             </div><!-- /.blog-main -->
 
@@ -50,18 +46,33 @@
                 </div>
                 <nav class="blog-pagination">
                     <a class="btn btn-outline-primary" href="/articles">Accueil</a>
-                    <a class="btn btn-outline-secondary " href="/articles/partager">Partager</a>
+                    <a class="btn btn-outline-secondary" href="/articles/partager">Partager</a>
                 </nav>
             </aside><!-- /.blog-sidebar -->
-            
         </div><!-- /.row -->
         <hr>
         <div class="container mt-4">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h1><i class="fas fa-comment"></i> Commentaires</h1>
+                    <div class="mt-4">
+                        @foreach($commentaires as $commentaire)
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $commentaire->nom_complet_auteur }}</h5>
+                                    <p class="card-text">{{ $commentaire->contenu }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ $commentaire->created_at->format('d/m/Y H:i') }}</small></p>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="row">
+                            <div class="col">
+                                {{ $commentaires->links() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <form class="col-6">
+                <form class="col-6" action="{{ route('commentaires.sauvegarde', $article->id) }}" method="post">
                     @csrf
                     <div>
                         <div class="mb-3">
@@ -76,14 +87,17 @@
                     </div>
                 </form>
             </div>
-        </div>
 
+           
+        </div>
     </main><!-- /.container -->
 
-    <footer class="blog-footer">
-        
-    </footer>
+    <footer class="blog-footer"></footer>
 
+    <!-- Inclure Bootstrap JS et ses dépendances -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

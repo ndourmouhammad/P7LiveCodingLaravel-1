@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Commentaire;
 use Illuminate\Http\Request;
 use PDO;
 
@@ -10,22 +11,35 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::where('a_la_une', '=', true)->paginate(12); //récupération des donnees
+        $articles = Article::paginate(12); //récupération des donnees
         // $articles = Article::paginate(12); //récupération des donnees
         return view('articles.index', ['articles' => $articles]);
     }
 
+    // public function detail($id)
+    // {
+    //     $commentaires = Commentaire::paginate(2)->where('article_id', $id);
+    //     $article = Article::find($id);
+    //     return view('articles.detail', [
+    //         'article' => $article,
+    //         'commentaires' => $commentaires
+    //     ]);
+
+    //     //  Article::all() => Select * from articles;
+    //     //  Article::find() => Select * from articles where id = id
+
+    // }
     public function detail($id)
-    {
-        $article = Article::find($id);
-        return view('articles.detail', [
-            'article' => $article
-        ]);
+{
+    $article = Article::findOrFail($id);
+    $commentaires = Commentaire::where('article_id', $id)->paginate(2);
 
-        //  Article::all() => Select * from articles;
-        //  Article::find() => Select * from articles where id = id
+    return view('articles.detail', [
+        'article' => $article,
+        'commentaires' => $commentaires
+    ]);
+}
 
-    }
 
     public function partager()
     {
