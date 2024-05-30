@@ -86,8 +86,9 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="post" action="/articles/sauvegarde">
+                    <form method="POST" action="/articles/sauvegarde">
                         @csrf
+                        @method('POST')
                         <div class="mb-3">
                             <label for="nom" class="form-label">Nom</label>
                             <input type="text" class="form-control" name="nom" id="nom">

@@ -14,6 +14,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Inclure Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 
@@ -37,7 +39,7 @@
                     <p class="blog-post-meta">January 1, 2014 by <a href="#">Samba</a></p>
 
                     <p> {{ $article->description }} </p>
-                    <hr>
+                    
                 </div><!-- /.blog-post -->
             </div><!-- /.blog-main -->
 
@@ -46,18 +48,40 @@
                     <h4 class="font-italic">About</h4>
                     <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
                 </div>
-
+                <nav class="blog-pagination">
+                    <a class="btn btn-outline-primary" href="/articles">Accueil</a>
+                    <a class="btn btn-outline-secondary " href="/articles/partager">Partager</a>
+                </nav>
             </aside><!-- /.blog-sidebar -->
-
+            
         </div><!-- /.row -->
+        <hr>
+        <div class="container mt-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1><i class="fas fa-comment"></i> Commentaires</h1>
+                </div>
+                <form class="col-6">
+                    @csrf
+                    <div>
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Présentez-vous</label>
+                            <input type="text" class="form-control" id="nom" name="nom_complet_auteur">
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentaire" class="form-label">Donner votre avis</label>
+                            <textarea class="form-control" id="commentaire" name="contenu"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </main><!-- /.container -->
 
     <footer class="blog-footer">
-        <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="/articles">Accueil</a>
-            <a class="btn btn-outline-secondary " href="/articles/partager">Partager</a>
-        </nav>
+        
     </footer>
 
 </body>

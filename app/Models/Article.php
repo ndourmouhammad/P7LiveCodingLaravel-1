@@ -15,4 +15,9 @@ class Article extends Model
         'url_image',
         'a_la_une'
     ];
+
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class);
+    }
 }
